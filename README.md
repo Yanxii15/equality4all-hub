@@ -122,53 +122,6 @@ equality4all-hub/
 └── README.md
 ```
 
-## Deployment
-
-This site is intended to be hosted with GitHub Pages.
-
-To deploy:
-
-1. Create a new public GitHub repository.
-2. Upload `index.html`, `palestine.html`, and `README.md`.
-3. Go to the repository settings.
-4. Open **Pages**.
-5. Set the source to **Deploy from branch**.
-6. Choose the `main` branch.
-7. Choose `/root`.
-8. Save.
-
-After deployment, GitHub Pages should publish the site at:
-
-```text
-https://your-username.github.io/repo-name/
-```
-
-For example:
-
-```text
-https://yanxii15.github.io/equality4all-hub/
-```
-
-## Important Netlify Warning
-
-The Netlify racism page is separate.
-
-Do not upload this hub over the old `equality4all` repo if that repo is still connected to Netlify.
-
-Recommended setup:
-
-```text
-Repo 1:
-equality4all
-Purpose: racism page + working Netlify form
-
-Repo 2:
-equality4all-hub
-Purpose: globe homepage + Palestine page
-```
-
-This prevents the Netlify form from breaking.
-
 ## Content Approach
 
 The project tries to follow these rules:
@@ -198,6 +151,7 @@ Future improvements could include:
 * Better mobile globe scaling.
 * Source list section at the bottom of each topic page.
 * Printable/reference version of each argument page.
+
 
 ## License
 
