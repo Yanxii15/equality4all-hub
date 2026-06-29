@@ -58,16 +58,16 @@
       background:
         linear-gradient(135deg, color-mix(in srgb, var(--red) 22%, transparent), transparent 34%),
         linear-gradient(90deg, color-mix(in srgb, var(--bg-soft) 96%, transparent), color-mix(in srgb, var(--green) 18%, var(--bg-soft)));
-      padding: 1.1rem 1.1rem 2rem;
+      padding: .55rem 1rem .75rem;
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(16px);
-      box-shadow: 0 10px 35px var(--shadow);
+      box-shadow: 0 8px 24px var(--shadow);
     }
     .header-inner { max-width: 980px; margin: 0 auto; }
-    .top-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+    .top-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .42rem; }
     .back-link, .theme-toggle {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
@@ -81,7 +81,7 @@
       border: 1px solid var(--border);
       background: color-mix(in srgb, var(--bg-card) 90%, transparent);
       border-radius: 999px;
-      padding: .55rem .72rem;
+      padding: .42rem .62rem;
       cursor: pointer;
       color: var(--text-primary);
     }
@@ -91,33 +91,34 @@
       letter-spacing: .35em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: .55rem;
+      margin-bottom: .26rem;
     }
     .header-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 4.25rem);
-      line-height: .98;
+      font-size: clamp(1.35rem, 3.2vw, 2.35rem);
+      line-height: 1.05;
       font-weight: 500;
       letter-spacing: -.055em;
-      max-width: 900px;
+      max-width: 760px;
     }
     .header-sub {
-      margin-top: .85rem;
+      margin-top: .35rem;
       color: var(--text-body);
-      font-size: clamp(.98rem, 1.4vw, 1.12rem);
-      max-width: 820px;
+      font-size: clamp(.82rem, 1.05vw, .95rem);
+      max-width: 760px;
+      line-height: 1.45;
     }
     .header-sub strong { color: var(--text-primary); }
 
     .nav-bar {
       background: color-mix(in srgb, var(--bg) 84%, transparent);
       border-bottom: 1px solid var(--border);
-      padding: .75rem 1rem;
+      padding: .55rem 1rem;
       overflow-x: auto;
       white-space: nowrap;
       scrollbar-width: none;
       position: sticky;
-      top: 198px;
+      top: 112px;
       z-index: 15;
       backdrop-filter: blur(14px);
     }
@@ -125,7 +126,7 @@
     .nav-inner { max-width: 980px; margin: 0 auto; display: flex; gap: .5rem; }
     .nav-pill {
       display: inline-block;
-      padding: .34rem .86rem;
+      padding: .26rem .78rem;
       border-radius: 999px;
       border: 1px solid var(--border);
       font-family: 'IBM Plex Mono', monospace;
@@ -137,7 +138,7 @@
     }
     .nav-pill:hover { color: var(--text-primary); border-color: color-mix(in srgb, var(--red) 44%, var(--border)); }
 
-    main { max-width: 980px; margin: 0 auto; padding: 1.3rem 1rem 3rem; }
+    main { max-width: 980px; margin: 0 auto; padding: 1rem 1rem 3rem; }
     .intro {
       border: 1px solid var(--border);
       border-radius: 18px;
@@ -228,7 +229,9 @@
     .footer-text { font-size: .86rem; max-width: 760px; color: var(--text-body); }
 
     @media (max-width: 760px) {
-      .site-header { position: relative; }
+      .site-header { position: relative; padding: .65rem .9rem .8rem; }
+      .header-title { font-size: clamp(1.45rem, 7vw, 2rem); }
+      .header-sub { font-size: .86rem; }
       .nav-bar { position: relative; top: auto; }
       .note-row { grid-template-columns: 1fr; }
       .section-btn, .point-btn { padding: .95rem 1rem; }
@@ -246,8 +249,8 @@
       <button class="theme-toggle" id="themeToggle" type="button">Light mode</button>
     </div>
     <p class="header-label">Argument reference · Palestine</p>
-    <h1 class="header-title">Palestine, occupation, and the case for a consistent standard.</h1>
-    <p class="header-sub">This page is not built to shout the loudest. It is built to keep the argument clean: <strong>civilian life matters, occupation has legal consequences, and self-determination is not a prize handed out only when powerful states feel generous.</strong></p>
+    <h1 class="header-title">Palestine, occupation, and consistent standards.</h1>
+    <p class="header-sub">A clean argument map: <strong>civilian life matters, occupation has legal consequences, and self-determination is a right.</strong></p>
   </div>
 </header>
 
