@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equality4All — Argument Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #050507;
+      --bg-soft: #0d0d11;
+      --panel: rgba(15, 15, 20, 0.72);
+      --panel-solid: #111116;
+      --panel-hover: rgba(255, 255, 255, 0.07);
+      --border: rgba(255, 255, 255, 0.13);
+      --border-strong: rgba(255, 255, 255, 0.25);
+      --text: #f1f1f1;
+      --muted: #a7a7af;
+      --quiet: #686873;
+      --shadow: rgba(0, 0, 0, 0.44);
+      --blue: #6bb7ff;
+      --green: #5dffad;
+      --red: #ff5d72;
+      --gold: #f5c96b;
+      --white: #ffffff;
+      --globe-water: #0c2138;
+      --globe-land: rgba(116, 186, 137, 0.62);
+      --grid: rgba(150, 210, 255, 0.25);
+      color-scheme: dark;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f4f1e8;
+      --bg-soft: #fffaf0;
+      --panel: rgba(255, 255, 255, 0.72);
+      --panel-solid: #fffaf0;
+      --panel-hover: rgba(7, 20, 32, 0.06);
+      --border: rgba(20, 25, 30, 0.16);
+      --border-strong: rgba(20, 25, 30, 0.28);
+      --text: #121318;
+      --muted: #4f525b;
+      --quiet: #78766d;
+      --shadow: rgba(60, 42, 20, 0.18);
+      --blue: #0969da;
+      --green: #037d4a;
+      --red: #c91f37;
+      --gold: #976a00;
+      --white: #121318;
+      --globe-water: #cfe6ff;
+      --globe-land: rgba(23, 126, 76, 0.55);
+      --grid: rgba(26, 74, 112, 0.2);
+      color-scheme: light;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--blue) 18%, transparent), transparent 34%),
+        radial-gradient(circle at 86% 76%, color-mix(in srgb, var(--green) 14%, transparent), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Source Serif 4', Georgia, serif;
+      line-height: 1.65;
+    }
+
+    .stars, .stars::before, .stars::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, color-mix(in srgb, var(--text) 42%, transparent) 1px, transparent 1.2px),
+        radial-gradient(circle, color-mix(in srgb, var(--text) 18%, transparent) 1px, transparent 1.3px);
+      background-size: 112px 112px, 176px 176px;
+      background-position: 0 0, 46px 80px;
+      opacity: 0.25;
+      z-index: -5;
+    }
+    .stars::before { animation: driftStars 56s linear infinite; opacity: .32; }
+    .stars::after { animation: driftStars 92s linear infinite reverse; opacity: .18; transform: scale(1.16); }
+    @keyframes driftStars { to { transform: translate3d(-220px, 130px, 0); } }
+
+    .topbar {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1120px, calc(100% - 32px));
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      pointer-events: none;
+    }
+    .brand, .theme-toggle {
+      pointer-events: auto;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 28px var(--shadow);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .58rem .82rem;
+      border-radius: 999px;
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .68rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .brand-dot {
+      width: .62rem;
+      height: .62rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), var(--green), var(--blue));
+      box-shadow: 0 0 18px color-mix(in srgb, var(--blue) 55%, transparent);
+    }
+    .theme-toggle {
+      border-radius: 999px;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      padding: .62rem .82rem;
+      text-transform: uppercase;
+    }
+
+    .globe-stage {
+      position: fixed;
+      right: clamp(-120px, -4vw, -10px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(76vw, 780px);
+      aspect-ratio: 1;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .82;
+      filter: drop-shadow(0 0 55px color-mix(in srgb, var(--blue) 23%, transparent));
+    }
+    .globe-shell {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      background:
+        radial-gradient(circle at 33% 25%, rgba(255,255,255,.22), transparent 10%),
+        radial-gradient(circle at 66% 78%, rgba(0,0,0,.32), transparent 42%),
+        var(--globe-water);
+      box-shadow:
+        inset -70px -45px 110px rgba(0,0,0,.52),
+        inset 30px 24px 80px rgba(255,255,255,.10),
+        0 32px 90px var(--shadow);
+    }
+    html[data-theme="light"] .globe-shell {
+      box-shadow:
+        inset -60px -40px 100px rgba(15,40,70,.18),
+        inset 34px 28px 80px rgba(255,255,255,.32),
+        0 24px 75px var(--shadow);
+    }
+    .globe-map {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform-origin: 50% 50%;
+      animation: breatheGlobe 18s ease-in-out infinite;
+    }
+    .globe-grid {
+      stroke: var(--grid);
+      stroke-width: 1.1;
+      fill: none;
+    }
+    .land {
+      fill: var(--globe-land);
+      opacity: .92;
+      filter: drop-shadow(0 0 7px color-mix(in srgb, var(--green) 12%, transparent));
+    }
+    .land.soft { opacity: .58; }
+    .globe-glow {
+      position: absolute;
+      inset: -2%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, transparent 61%, color-mix(in srgb, var(--blue) 30%, transparent) 66%, transparent 75%);
+      pointer-events: none;
+    }
+    @keyframes breatheGlobe {
+      0%, 100% { transform: translateX(0) scale(1); }
+      50% { transform: translateX(-14px) scale(1.015); }
+    }
+
+    .map-node {
+      position: absolute;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-shadow: 0 1px 10px rgba(0,0,0,.48);
+      pointer-events: auto;
+    }
+    .map-node::before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid var(--node-color, var(--blue));
+      background: color-mix(in srgb, var(--node-color, var(--blue)) 24%, transparent);
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--node-color, var(--blue)) 40%, transparent), 0 0 20px color-mix(in srgb, var(--node-color, var(--blue)) 45%, transparent);
+      animation: pulseNode 2.4s infinite;
+      flex-shrink: 0;
+    }
+    .map-node span {
+      padding: .18rem .38rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--panel-solid) 70%, transparent);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .node-palestine { --node-color: var(--red); left: 55%; top: 43%; }
+    .node-myanmar { --node-color: var(--gold); left: 68%; top: 53%; animation-delay: .5s; }
+    .node-congo { --node-color: var(--green); left: 49%; top: 61%; animation-delay: 1s; }
+    .node-racism { --node-color: var(--blue); left: 30%; top: 38%; animation-delay: 1.4s; }
+    @keyframes pulseNode {
+      0% { transform: scale(.92); box-shadow: 0 0 0 0 color-mix(in srgb, var(--node-color, var(--blue)) 42%, transparent); }
+      70% { transform: scale(1.06); box-shadow: 0 0 0 18px transparent; }
+      100% { transform: scale(.92); box-shadow: 0 0 0 0 transparent; }
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 7rem 0 4rem;
+      position: relative;
+      z-index: 2;
+    }
+    header {
+      min-height: 68vh;
+      display: grid;
+      align-items: center;
+      position: relative;
+    }
+    .hero-copy { max-width: 720px; }
+    .kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .34em;
+      font-size: .7rem;
+      color: var(--quiet);
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: clamp(2.55rem, 8vw, 7.3rem);
+      line-height: .92;
+      letter-spacing: -.07em;
+      max-width: 860px;
+    }
+    .lede {
+      color: var(--muted);
+      font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+      max-width: 670px;
+      margin-top: 1.45rem;
+    }
+    .lede strong { color: var(--text); font-weight: 600; }
+    .hero-actions {
+      display: flex;
+      gap: .78rem;
+      flex-wrap: wrap;
+      margin-top: 1.9rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .8rem 1.08rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .72rem;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 28px var(--shadow);
+    }
+    .btn:hover { transform: translateY(-2px); border-color: var(--border-strong); background: var(--panel-hover); }
+    .btn.blue { color: var(--blue); }
+    .btn.green { color: var(--green); }
+    .btn.red { color: var(--red); }
+    .btn.gold { color: var(--gold); }
+
+    .quick-note {
+      max-width: 720px;
+      margin-top: 1.45rem;
+      padding: 1rem 1.05rem;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+      color: var(--muted);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 45px var(--shadow);
+    }
+    .quick-note strong { color: var(--text); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--panel-solid) 86%, transparent), color-mix(in srgb, var(--panel-solid) 62%, transparent));
+      border-radius: 24px;
+      padding: 1.28rem;
+      min-height: 270px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 50px var(--shadow);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 12% 0%, var(--accent), transparent 36%);
+      opacity: .13;
+      pointer-events: none;
+    }
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: .72rem;
+      letter-spacing: -.03em;
+    }
+    .card p { color: var(--muted); font-size: .96rem; position: relative; }
+    .card .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .68rem;
+      color: var(--quiet);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      margin-bottom: .7rem;
+      position: relative;
+    }
+    .card .card-link {
+      margin-top: 1.1rem;
+      align-self: flex-start;
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .7rem;
+      text-decoration: none;
+      border-bottom: 1px dotted color-mix(in srgb, var(--accent) 75%, var(--text));
+      position: relative;
+    }
+    .card .card-link:hover { border-bottom-style: solid; }
+
+    .statement {
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      padding: clamp(1.2rem, 3vw, 2rem);
+      box-shadow: 0 18px 50px var(--shadow);
+    }
+    .statement h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: clamp(1.7rem, 4vw, 3rem);
+      letter-spacing: -.04em;
+      margin-bottom: .85rem;
+    }
+    .statement p { color: var(--muted); max-width: 880px; }
+
+    footer {
+      margin-top: 2.5rem;
+      color: var(--quiet);
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .68rem;
+    }
+
+    @media (max-width: 940px) {
+      .globe-stage { width: min(105vw, 720px); right: -250px; opacity: .55; }
+      .grid { grid-template-columns: 1fr; }
+      .card { min-height: 210px; }
+      header { min-height: 74vh; }
+    }
+    @media (max-width: 620px) {
+      .page { width: min(100% - 24px, 1120px); padding-top: 6.5rem; }
+      .topbar { width: calc(100% - 24px); top: .75rem; }
+      .brand { max-width: 56vw; overflow: hidden; white-space: nowrap; }
+      .theme-toggle { font-size: .62rem; padding: .58rem .7rem; }
+      .globe-stage { width: 118vw; right: -58vw; top: 40%; opacity: .45; }
+      .map-node span { display: none; }
+      .hero-actions { gap: .55rem; }
+      .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <div class="topbar">
+    <a class="brand" href="index.html" aria-label="Equality4All home"><span class="brand-dot"></span> Equality4All</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">Light mode</button>
+  </div>
+
+  <div class="globe-stage" aria-label="Background globe with topic links">
+    <div class="globe-shell">
+      <svg class="globe-map" viewBox="0 0 600 600" role="img" aria-label="Stylised rotating world map">
+        <defs>
+          <clipPath id="clipGlobe"><circle cx="300" cy="300" r="292" /></clipPath>
+        </defs>
+        <g clip-path="url(#clipGlobe)">
+          <circle cx="300" cy="300" r="292" fill="transparent" />
+          <g class="globe-grid">
+            <ellipse cx="300" cy="300" rx="292" ry="86" />
+            <ellipse cx="300" cy="300" rx="292" ry="155" />
+            <ellipse cx="300" cy="300" rx="292" ry="228" />
+            <path d="M8 300 H592" />
+            <ellipse cx="300" cy="300" rx="74" ry="292" />
+            <ellipse cx="300" cy="300" rx="146" ry="292" />
+            <ellipse cx="300" cy="300" rx="218" ry="292" />
+            <path d="M300 8 V592" />
+          </g>
+          <!-- Simplified landmasses: visible, offline-safe silhouettes rather than a heavy map library. -->
+          <path class="land" d="M95 145 C124 103 190 112 211 143 C228 168 204 182 218 213 C234 248 202 264 177 250 C146 232 139 275 108 256 C82 240 65 185 95 145 Z" />
+          <path class="land soft" d="M168 286 C214 275 239 323 219 367 C203 402 213 449 177 470 C149 486 133 447 147 413 C158 385 126 361 136 327 C141 306 151 294 168 286 Z" />
+          <path class="land" d="M255 130 C314 93 394 113 430 156 C455 185 431 213 462 235 C502 264 482 326 432 324 C390 322 366 287 330 301 C296 314 267 279 287 246 C310 207 221 178 255 130 Z" />
+          <path class="land soft" d="M340 326 C371 302 414 323 424 364 C436 411 398 472 353 468 C326 466 314 438 326 408 C338 379 310 349 340 326 Z" />
+          <path class="land" d="M440 210 C496 190 543 233 528 282 C517 319 473 320 465 351 C459 377 424 371 420 340 C416 306 443 286 431 258 C422 236 421 219 440 210 Z" />
+          <path class="land soft" d="M478 390 C522 388 553 423 546 464 C538 506 482 520 455 489 C430 461 441 394 478 390 Z" />
+          <path class="land soft" d="M62 362 C103 344 124 380 104 413 C83 445 33 426 31 392 C30 376 42 368 62 362 Z" />
+        </g>
+      </svg>
+    </div>
+    <div class="globe-glow"></div>
+    <a class="map-node node-palestine" href="palestine.html"><span>Palestine</span></a>
+    <a class="map-node node-myanmar" href="https://www.unrefugees.org/news/rohingya-refugee-crisis-explained/" target="_blank" rel="noopener noreferrer"><span>Myanmar</span></a>
+    <a class="map-node node-congo" href="https://www.unhcr.org/emergencies/dr-congo-emergency" target="_blank" rel="noopener noreferrer"><span>Congo</span></a>
+    <a class="map-node node-racism" href="https://equality4all.netlify.app/" target="_blank" rel="noopener noreferrer"><span>Racism</span></a>
+  </div>
+
+  <main class="page">
+    <header>
+      <div class="hero-copy">
+        <p class="kicker">Debate notes · evidence first · no slogan fog</p>
+        <h1>Arguments mapped like a world at night.</h1>
+        <p class="lede">
+          This is a small home base for topics I keep coming back to: racism, Palestine, occupation, rights, and the way people twist words when the evidence gets uncomfortable. <strong>The aim is not noise. The aim is clarity.</strong>
+        </p>
+        <div class="hero-actions" aria-label="Main links">
+          <a class="btn green" href="https://equality4all.netlify.app/" target="_blank" rel="noopener noreferrer">Racism page · Netlify form</a>
+          <a class="btn blue" href="https://yanxii15.github.io/equality4all/" target="_blank" rel="noopener noreferrer">Racism page · GitHub</a>
+          <a class="btn red" href="palestine.html">Palestine arguments</a>
+        </div>
+        <div class="quick-note">
+          <strong>Note:</strong> the Netlify racism page is kept separate because that is where the working “ask me questions” form lives. This hub links to it instead of replacing it.
+        </div>
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Argument topics">
+      <article class="card" style="--accent: var(--blue);">
+        <div>
+          <p class="meta">Race & racism</p>
+          <h2>What counts as racism?</h2>
+          <p>A clean reference page for definitions, counterarguments, global examples, and the weak spots in “power + prejudice” claims.</p>
+        </div>
+        <a class="card-link" href="https://equality4all.netlify.app/" target="_blank" rel="noopener noreferrer">Open the live Netlify page →</a>
+      </article>
+
+      <article class="card" style="--accent: var(--red);">
+        <div>
+          <p class="meta">Palestine</p>
+          <h2>Occupation, law, and self-determination.</h2>
+          <p>A calmer argument page: not every point is a chant, not every criticism is antisemitism, and not every civilian death can be waved away by saying “security.”</p>
+        </div>
+        <a class="card-link" href="palestine.html">Open the Palestine page →</a>
+      </article>
+
+      <article class="card" style="--accent: var(--green);">
+        <div>
+          <p class="meta">Global cases</p>
+          <h2>Myanmar, Congo, and beyond.</h2>
+          <p>The map matters because injustice is not locked to one country. The dots are reminders: different histories, same need for honest standards.</p>
+        </div>
+        <a class="card-link" href="https://www.unrefugees.org/news/rohingya-refugee-crisis-explained/" target="_blank" rel="noopener noreferrer">Example source →</a>
+      </article>
+    </section>
+
+    <section class="statement">
+      <h2>The standard should not move.</h2>
+      <p>
+        The whole project is built around one rule: use the same definitions even when they become inconvenient. If a principle only works when it protects your side, it is not a principle. It is decoration.
+      </p>
+    </section>
+
+    <footer>
+      Built as a static GitHub Pages hub · Netlify remains the form host
+    </footer>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('e4a-theme');
+    const systemLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const startingTheme = savedTheme || (systemLight ? 'light' : 'dark');
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('e4a-theme', theme);
+      btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+      btn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
+    }
+
+    setTheme(startingTheme);
+    btn.addEventListener('click', () => {
+      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>

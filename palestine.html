@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palestine, Occupation & Self-Determination — Argument Reference</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808;
+      --bg-soft: #101012;
+      --bg-card: rgba(17,17,20,.88);
+      --bg-point: #101014;
+      --bg-expanded: #17171b;
+      --border: #28282d;
+      --text-primary: #f0f0f0;
+      --text-body: #c8c8ce;
+      --text-muted: #85858d;
+      --red: #ce1126;
+      --green: #007a3d;
+      --white: #f5f5f5;
+      --black: #050505;
+      --shadow: rgba(0,0,0,.42);
+      color-scheme: dark;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f1e7;
+      --bg-soft: #fffaf0;
+      --bg-card: rgba(255,250,240,.92);
+      --bg-point: #fffaf0;
+      --bg-expanded: #f4eadb;
+      --border: #d6cab6;
+      --text-primary: #141414;
+      --text-body: #34343a;
+      --text-muted: #66645e;
+      --red: #b31324;
+      --green: #006b3a;
+      --white: #ffffff;
+      --black: #151515;
+      --shadow: rgba(65,45,20,.13);
+      color-scheme: light;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background:
+        radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--red) 18%, transparent), transparent 34%),
+        radial-gradient(circle at 86% 74%, color-mix(in srgb, var(--green) 15%, transparent), transparent 39%),
+        var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.68;
+    }
+    .flag-strip { height: 6px; background: linear-gradient(90deg, var(--black) 0 25%, var(--white) 25% 50%, var(--green) 50% 75%, var(--red) 75% 100%); }
+    .site-header {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--red) 22%, transparent), transparent 34%),
+        linear-gradient(90deg, color-mix(in srgb, var(--bg-soft) 96%, transparent), color-mix(in srgb, var(--green) 18%, var(--bg-soft)));
+      padding: 1.1rem 1.1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 35px var(--shadow);
+    }
+    .header-inner { max-width: 980px; margin: 0 auto; }
+    .top-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+    .back-link, .theme-toggle {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .16em;
+      color: var(--text-muted);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .back-link:hover { color: var(--text-primary); }
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-card) 90%, transparent);
+      border-radius: 999px;
+      padding: .55rem .72rem;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+    .header-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .55rem;
+    }
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 4.25rem);
+      line-height: .98;
+      font-weight: 500;
+      letter-spacing: -.055em;
+      max-width: 900px;
+    }
+    .header-sub {
+      margin-top: .85rem;
+      color: var(--text-body);
+      font-size: clamp(.98rem, 1.4vw, 1.12rem);
+      max-width: 820px;
+    }
+    .header-sub strong { color: var(--text-primary); }
+
+    .nav-bar {
+      background: color-mix(in srgb, var(--bg) 84%, transparent);
+      border-bottom: 1px solid var(--border);
+      padding: .75rem 1rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      position: sticky;
+      top: 198px;
+      z-index: 15;
+      backdrop-filter: blur(14px);
+    }
+    .nav-bar::-webkit-scrollbar { display: none; }
+    .nav-inner { max-width: 980px; margin: 0 auto; display: flex; gap: .5rem; }
+    .nav-pill {
+      display: inline-block;
+      padding: .34rem .86rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: .15s;
+      background: color-mix(in srgb, var(--bg-card) 74%, transparent);
+    }
+    .nav-pill:hover { color: var(--text-primary); border-color: color-mix(in srgb, var(--red) 44%, var(--border)); }
+
+    main { max-width: 980px; margin: 0 auto; padding: 1.3rem 1rem 3rem; }
+    .intro {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--bg-card);
+      padding: 1.25rem 1.35rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 18px 46px var(--shadow);
+    }
+    .intro strong { color: var(--text-primary); }
+    .intro p { color: var(--text-body); margin-bottom: .82rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .note-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .8rem;
+      margin-bottom: 1rem;
+    }
+    .note {
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 14px 35px var(--shadow);
+    }
+    .note h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: .4rem;
+    }
+    .note p { color: var(--text-body); font-size: .94rem; }
+
+    .section-card {
+      margin-bottom: .75rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--bg-point);
+      transition: border-color .2s ease;
+      box-shadow: 0 14px 38px var(--shadow);
+    }
+    .section-card.open { border-color: var(--section-accent, #555); }
+    .section-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.08rem 1.3rem;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--section-color) 20%, var(--bg-card)), var(--bg-card));
+      text-align: left;
+      gap: 1rem;
+      color: inherit;
+    }
+    .section-left { display: flex; gap: .8rem; align-items: center; }
+    .section-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--section-accent); box-shadow: 0 0 12px var(--section-accent); flex-shrink: 0; }
+    .section-title { font-family: 'Playfair Display', serif; font-weight: 500; color: var(--text-primary); font-size: 1.08rem; }
+    .section-count { font-family: 'IBM Plex Mono', monospace; color: var(--section-accent); font-size: 10px; white-space: nowrap; }
+    .chev { color: var(--text-muted); transition: .2s; }
+    .section-card.open .chev { transform: rotate(180deg); }
+
+    .points-list { display: none; background: var(--bg-point); }
+    .section-card.open .points-list { display: block; }
+    .point-item { border-top: 1px solid var(--border); }
+    .point-btn {
+      width: 100%; border: none; background: transparent; color: inherit;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 1rem 1.3rem; text-align: left; cursor: pointer; gap: 1rem;
+    }
+    .point-btn:hover { background: color-mix(in srgb, var(--section-accent) 8%, transparent); }
+    .point-item.expanded .point-btn { background: var(--bg-expanded); }
+    .point-left { display: flex; gap: .75rem; align-items: flex-start; }
+    .point-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--section-accent); margin-top: .14rem; flex-shrink: 0; }
+    .point-heading { font-size: .97rem; color: var(--text-primary); line-height: 1.45; font-weight: 600; }
+    .point-toggle { color: var(--text-muted); font-size: 1.15rem; font-family: monospace; }
+    .point-body { display: none; padding: 0 1.3rem 1.22rem 3.35rem; }
+    .point-item.expanded .point-body { display: block; }
+    .point-text { font-size: .94rem; color: var(--text-body); line-height: 1.8; margin-bottom: .85rem; }
+    .point-source { font-family: 'IBM Plex Mono', monospace; font-size: .74rem; color: var(--section-accent); opacity: .95; border-left: 2px solid var(--section-accent); padding-left: .75rem; line-height: 1.65; }
+    .source-link { color: var(--section-accent); text-decoration: underline; text-decoration-style: dotted; font-weight: 500; white-space: nowrap; }
+    .source-link:hover { text-decoration-style: solid; }
+
+    .site-footer { margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1px solid var(--border); color: var(--text-muted); }
+    .footer-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: .65rem; }
+    .footer-text { font-size: .86rem; max-width: 760px; color: var(--text-body); }
+
+    @media (max-width: 760px) {
+      .site-header { position: relative; }
+      .nav-bar { position: relative; top: auto; }
+      .note-row { grid-template-columns: 1fr; }
+      .section-btn, .point-btn { padding: .95rem 1rem; }
+      .point-body { padding: 0 1rem 1rem 2.55rem; }
+      .top-row { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="flag-strip"></div>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="top-row">
+      <a class="back-link" href="index.html">← Back to hub</a>
+      <button class="theme-toggle" id="themeToggle" type="button">Light mode</button>
+    </div>
+    <p class="header-label">Argument reference · Palestine</p>
+    <h1 class="header-title">Palestine, occupation, and the case for a consistent standard.</h1>
+    <p class="header-sub">This page is not built to shout the loudest. It is built to keep the argument clean: <strong>civilian life matters, occupation has legal consequences, and self-determination is not a prize handed out only when powerful states feel generous.</strong></p>
+  </div>
+</header>
+
+<nav class="nav-bar" aria-label="Jump to section">
+  <div class="nav-inner" id="navInner"></div>
+</nav>
+
+<main id="main">
+  <section class="intro">
+    <p><strong>The basic position:</strong> supporting Palestine means supporting Palestinian self-determination, opposing occupation and settlement expansion, and refusing to treat Palestinian civilians as disposable background damage.</p>
+    <p>It does not require hating Jews. It does not require defending the killing of Israeli civilians. And it does not require pretending every Palestinian faction is morally pure. The point is simpler: rights do not vanish because the politics are messy.</p>
+  </section>
+
+  <section class="note-row" aria-label="Core framing notes">
+    <article class="note"><h2>Keep it precise</h2><p>Criticise states, armies, policies, and political movements. Do not turn that into hatred of Jews as a people.</p></article>
+    <article class="note"><h2>Keep it human</h2><p>Every civilian death matters. Palestinian and Israeli civilians are not debate props.</p></article>
+    <article class="note"><h2>Keep it consistent</h2><p>If occupation, collective punishment, or targeting civilians is wrong elsewhere, it is wrong here too.</p></article>
+  </section>
+</main>
+
+<script>
+const sections = [
+  {
+    id: 'starting-point',
+    title: '1. The Starting Point',
+    color: '#ce1126',
+    accent: '#ce1126',
+    points: [
+      {
+        heading: 'Palestinians are a people with a right to self-determination',
+        body: 'The strongest argument starts here. Palestinians are not just a humanitarian problem or a population to be managed. They are a people with political rights, identity, history, land, and a claim to self-determination. You can argue about borders and security arrangements, but you cannot erase the people from the equation.',
+        source: 'UN Charter Article 1(2); ICJ Advisory Opinion on the Occupied Palestinian Territory, 19 July 2024',
+        link: 'https://www.icj-cij.org/sites/default/files/case-related/186/186-20240719-adv-01-00-en.pdf'
+      },
+      {
+        heading: 'Supporting Palestine is not the same thing as supporting attacks on civilians',
+        body: 'This distinction matters. You can support Palestinian rights while clearly rejecting the killing, kidnapping, or deliberate targeting of civilians. That is not a contradiction. It is the only morally stable position.',
+        source: 'International Committee of the Red Cross — Customary IHL, Rule 1: distinction between civilians and combatants',
+        link: 'https://ihl-databases.icrc.org/en/customary-ihl/v1/rule1'
+      },
+      {
+        heading: 'Criticism of Israel is not automatically antisemitism',
+        body: 'Antisemitism is real and evil. But criticism of a state, its military, its occupation, its settlement policy, or its government is not automatically hatred of Jews. The line is crossed when criticism becomes hatred, conspiracy, collective blame, or dehumanisation of Jews as Jews.',
+        source: 'Jerusalem Declaration on Antisemitism; Nexus Document; IHRA working definition debate',
+        link: 'https://jerusalemdeclaration.org/'
+      }
+    ]
+  },
+  {
+    id: 'occupation-law',
+    title: '2. Occupation & International Law',
+    color: '#101010',
+    accent: '#f5f5f5',
+    points: [
+      {
+        heading: 'The occupation is not a vague opinion — it has a legal record',
+        body: 'The West Bank, including East Jerusalem, has been treated by the UN, the ICJ, and most international legal bodies as occupied territory. That does not answer every political question, but it does set a legal baseline that cannot be ignored.',
+        source: 'ICJ Advisory Opinion, 19 July 2024; UN Security Council Resolution 2334',
+        link: 'https://www.un.org/press/en/2016/sc12657.doc.htm'
+      },
+      {
+        heading: 'In 2024, the ICJ said Israel’s continued presence in the occupied territory is unlawful',
+        body: 'The International Court of Justice concluded that Israel’s continued presence in the Occupied Palestinian Territory is unlawful and that Israel has an obligation to bring that presence to an end as rapidly as possible. That is a major legal anchor, even though advisory opinions are not the same as criminal verdicts.',
+        source: 'International Court of Justice — Legal Consequences arising from the Policies and Practices of Israel in the OPT, Advisory Opinion, 19 July 2024',
+        link: 'https://www.icj-cij.org/sites/default/files/case-related/186/186-20240719-adv-01-00-en.pdf'
+      },
+      {
+        heading: 'Settlements are one of the clearest legal problems',
+        body: 'UN Security Council Resolution 2334 says Israeli settlements in territory occupied since 1967 have no legal validity and are a flagrant violation under international law. This is why settlements are not just “housing disputes.” They alter land, movement, control, and the future map.',
+        source: 'UN Security Council Resolution 2334 (2016)',
+        link: 'https://undocs.org/S/RES/2334(2016)'
+      }
+    ]
+  },
+  {
+    id: 'apartheid-discrimination',
+    title: '3. Apartheid, Segregation & Discrimination',
+    color: '#007a3d',
+    accent: '#007a3d',
+    points: [
+      {
+        heading: 'The apartheid argument is not just an insult',
+        body: 'People often use “apartheid” like a slogan, but the serious version is legal: separate systems, different rights, movement restrictions, land control, and domination by one group over another. The claim should be argued carefully, not thrown around lazily.',
+        source: 'Human Rights Watch — A Threshold Crossed (2021); Amnesty International report (2022)',
+        link: 'https://www.hrw.org/report/2021/04/27/threshold-crossed/israeli-authorities-and-crimes-apartheid-and-persecution'
+      },
+      {
+        heading: 'The ICJ found a breach connected to racial segregation and apartheid under CERD',
+        body: 'In the 2024 advisory opinion, the ICJ said Israel’s legislation and measures impose and maintain a near-complete separation in the occupied territory and found a breach of Article 3 of CERD, the treaty article condemning racial segregation and apartheid.',
+        source: 'ICJ Advisory Opinion, 19 July 2024; CERD Article 3',
+        link: 'https://www.icj-cij.org/sites/default/files/case-related/186/186-20240719-adv-01-00-en.pdf'
+      },
+      {
+        heading: 'The counterargument: Israel says security, not racial domination',
+        body: 'The best opposing argument is that restrictions are driven by security threats, suicide bombings, rocket attacks, and militant groups, not by racial or ethnic domination. A fair debate has to state this clearly. The reply is that security can justify some measures, but it cannot justify permanent domination, settlement expansion, or unequal civil systems without limit.',
+        source: 'ICJ Advisory Opinion and Israeli government position; general security argument in public debate',
+        link: 'https://www.gov.il/en/departments/ministry_of_foreign_affairs/govil-landing-page'
+      }
+    ]
+  },
+  {
+    id: 'gaza-war',
+    title: '4. Gaza, War & Civilian Harm',
+    color: '#ce1126',
+    accent: '#ff5b6e',
+    points: [
+      {
+        heading: 'Hamas committing war crimes does not give Israel a blank cheque',
+        body: 'This is the cleanest way to answer the “but Hamas” point. Hamas can be guilty of war crimes, and Israel can still be bound by international humanitarian law. One side’s crime does not cancel the other side’s obligations.',
+        source: 'ICRC Customary IHL: distinction, proportionality, and precautions in attack',
+        link: 'https://ihl-databases.icrc.org/en/customary-ihl/v1'
+      },
+      {
+        heading: 'Collective punishment is not security',
+        body: 'Punishing a civilian population for the actions of militants is not allowed. Siege conditions, starvation risk, mass displacement, and destruction of civilian infrastructure have to be judged by the laws of war, not by anger alone.',
+        source: 'Fourth Geneva Convention, Article 33; ICRC explanation of collective punishment',
+        link: 'https://ihl-databases.icrc.org/en/ihl-treaties/gciv-1949/article-33'
+      },
+      {
+        heading: 'The genocide case is serious, but it should be described accurately',
+        body: 'South Africa’s case at the ICJ does not mean there has already been a final genocide ruling. The Court issued provisional measures, meaning it considered there was a serious legal dispute and urgent risk requiring protective orders. Say that precisely; do not overclaim.',
+        source: 'ICJ — South Africa v. Israel, Application of the Genocide Convention in the Gaza Strip',
+        link: 'https://www.icj-cij.org/case/192'
+      }
+    ]
+  },
+  {
+    id: 'history-context',
+    title: '5. History Without the Fog',
+    color: '#f5f5f5',
+    accent: '#d7d7d7',
+    points: [
+      {
+        heading: 'The history is not “ancient hatred” — modern power matters',
+        body: 'The conflict has deep religious and historical layers, but the modern political question was shaped by nationalism, empire, British rule, the Mandate period, war, displacement, occupation, and failed diplomacy. Calling it “ancient hatred” hides the actual causes.',
+        source: 'UN — The Question of Palestine; Encyclopaedia Britannica overview',
+        link: 'https://www.un.org/unispal/history/'
+      },
+      {
+        heading: 'The Nakba is central to Palestinian memory',
+        body: 'For Palestinians, 1948 is not just a date. It means mass displacement, loss of homes, refugeehood, and a wound carried across generations. You do not have to deny Jewish historical trauma to recognise Palestinian trauma too.',
+        source: 'UN — The Question of Palestine historical materials; UNRWA refugee background',
+        link: 'https://www.unrwa.org/palestine-refugees'
+      },
+      {
+        heading: 'Jewish safety matters too — but safety cannot require permanent Palestinian subordination',
+        body: 'The Jewish people have faced real persecution, pogroms, and genocide. Israeli civilians also have real security fears. But the moral mistake is using that truth to justify endless occupation, unequal rights, or civilian suffering without accountability.',
+        source: 'Logical argument from equal civilian protection and self-determination principles',
+        link: ''
+      }
+    ]
+  },
+  {
+    id: 'debate-responses',
+    title: '6. Clean Replies to Common Arguments',
+    color: '#007a3d',
+    accent: '#4ade80',
+    points: [
+      {
+        heading: '“Israel has a right to defend itself.”',
+        body: 'Yes — but self-defence is not unlimited. It must still obey distinction, proportionality, necessity, and precautions. A right to defend yourself is not a right to do anything you want.',
+        source: 'UN Charter Article 51; ICRC Customary IHL rules on conduct of hostilities',
+        link: 'https://ihl-databases.icrc.org/en/customary-ihl/v1'
+      },
+      {
+        heading: '“Palestine was never a real country.”',
+        body: 'This is weaker than it sounds. Many peoples gained statehood after empire or mandate rule. The right to self-determination does not depend on already having had a modern nation-state in the exact same form.',
+        source: 'UN Charter Article 1(2); UN General Assembly Resolution ES-10/23, 10 May 2024',
+        link: 'https://digitallibrary.un.org/record/4046991'
+      },
+      {
+        heading: '“If Palestinians wanted peace, they would stop resisting.”',
+        body: 'This collapses too much into one sentence. Armed attacks on civilians are wrong. But resistance to occupation as a political fact does not disappear because some groups commit crimes. The debate has to separate civilian protection, occupation, diplomacy, and armed groups instead of blending them into one foggy accusation.',
+        source: 'International humanitarian law distinction between people, civilians, combatants, and political leadership',
+        link: 'https://ihl-databases.icrc.org/en/customary-ihl/v1/rule1'
+      },
+      {
+        heading: '“Why focus on Palestine and not other conflicts?”',
+        body: 'You can care about Palestine and Congo and Sudan and Myanmar. Moral attention is not a single-use battery. The better answer is: yes, be consistent. Add the other cases; do not use them to silence this one.',
+        source: 'Consistency argument; see UNHCR emergency pages for global crises',
+        link: 'https://www.unhcr.org/emergencies'
+      }
+    ]
+  }
+];
+
+const navInner = document.getElementById('navInner');
+const main = document.getElementById('main');
+
+sections.forEach(section => {
+  const nav = document.createElement('a');
+  nav.href = `#${section.id}`;
+  nav.className = 'nav-pill';
+  nav.textContent = section.title.replace(/^\d+\.\s/, '');
+  navInner.appendChild(nav);
+
+  const card = document.createElement('section');
+  card.className = 'section-card';
+  card.id = section.id;
+  card.style.setProperty('--section-accent', section.accent);
+  card.style.setProperty('--section-color', section.color);
+
+  const btn = document.createElement('button');
+  btn.className = 'section-btn';
+  btn.setAttribute('aria-expanded', 'false');
+  btn.innerHTML = `
+    <div class="section-left">
+      <span class="section-dot"></span>
+      <span class="section-title">${section.title}</span>
+    </div>
+    <span class="section-count">${section.points.length} points <span class="chev">▾</span></span>
+  `;
+  btn.addEventListener('click', () => {
+    const open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+
+  const list = document.createElement('div');
+  list.className = 'points-list';
+
+  section.points.forEach((point, i) => {
+    const item = document.createElement('article');
+    item.className = 'point-item';
+
+    const pBtn = document.createElement('button');
+    pBtn.className = 'point-btn';
+    pBtn.setAttribute('aria-expanded', 'false');
+    pBtn.innerHTML = `
+      <div class="point-left">
+        <span class="point-num">${String(i + 1).padStart(2, '0')}</span>
+        <span class="point-heading">${point.heading}</span>
+      </div>
+      <span class="point-toggle">+</span>
+    `;
+    pBtn.addEventListener('click', () => {
+      const expanded = item.classList.toggle('expanded');
+      pBtn.setAttribute('aria-expanded', expanded);
+      pBtn.querySelector('.point-toggle').textContent = expanded ? '−' : '+';
+    });
+
+    let sourceHTML = point.source;
+    if (point.link && point.link.trim()) {
+      sourceHTML += ` · <a class="source-link" href="${point.link}" target="_blank" rel="noopener noreferrer">View source →</a>`;
+    }
+
+    const body = document.createElement('div');
+    body.className = 'point-body';
+    body.innerHTML = `<p class="point-text">${point.body}</p><div class="point-source">${sourceHTML}</div>`;
+
+    item.appendChild(pBtn);
+    item.appendChild(body);
+    list.appendChild(item);
+  });
+
+  card.appendChild(btn);
+  card.appendChild(list);
+  main.appendChild(card);
+});
+
+const footer = document.createElement('footer');
+footer.className = 'site-footer';
+footer.innerHTML = `
+  <p class="footer-label">How to use this page</p>
+  <p class="footer-text">Use this as a debate map, not as a script to blindly copy. Open the sources, keep the claims precise, and do not overstate the evidence. Precision is stronger than volume.</p>
+`;
+main.appendChild(footer);
+
+const root = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('e4a-theme');
+const systemLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+const startingTheme = savedTheme || (systemLight ? 'light' : 'dark');
+function setTheme(theme) {
+  root.setAttribute('data-theme', theme);
+  localStorage.setItem('e4a-theme', theme);
+  toggle.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+}
+setTheme(startingTheme);
+toggle.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+</script>
+</body>
+</html>
