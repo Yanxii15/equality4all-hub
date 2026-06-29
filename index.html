@@ -4,8 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Equality4All — Argument Map</title>
+
+  <!-- OpenDyslexic is loaded from CDNFonts, with safe system fallbacks below. -->
+  <link href="https://fonts.cdnfonts.com/css/opendyslexic" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,24 +22,27 @@
       --border: rgba(255, 255, 255, 0.13);
       --border-strong: rgba(255, 255, 255, 0.25);
       --text: #f1f1f1;
-      --muted: #a7a7af;
-      --quiet: #686873;
+      --muted: #b6b6bd;
+      --quiet: #777782;
       --shadow: rgba(0, 0, 0, 0.44);
       --blue: #6bb7ff;
       --green: #5dffad;
       --red: #ff5d72;
       --gold: #f5c96b;
       --white: #ffffff;
-      --globe-water: #0c2138;
-      --globe-land: rgba(116, 186, 137, 0.62);
-      --grid: rgba(150, 210, 255, 0.25);
+      --globe-water-1: #0b1b32;
+      --globe-water-2: #0f3556;
+      --globe-land: #3f9f72;
+      --globe-land-hi: #7fd3a0;
+      --country-stroke: rgba(245, 255, 246, 0.36);
+      --graticule: rgba(179, 222, 255, 0.28);
       color-scheme: dark;
     }
 
     html[data-theme="light"] {
       --bg: #f4f1e8;
       --bg-soft: #fffaf0;
-      --panel: rgba(255, 255, 255, 0.72);
+      --panel: rgba(255, 255, 255, 0.74);
       --panel-solid: #fffaf0;
       --panel-hover: rgba(7, 20, 32, 0.06);
       --border: rgba(20, 25, 30, 0.16);
@@ -49,13 +56,17 @@
       --red: #c91f37;
       --gold: #976a00;
       --white: #121318;
-      --globe-water: #cfe6ff;
-      --globe-land: rgba(23, 126, 76, 0.55);
-      --grid: rgba(26, 74, 112, 0.2);
+      --globe-water-1: #cfe6ff;
+      --globe-water-2: #8fc5f7;
+      --globe-land: #257b4d;
+      --globe-land-hi: #4f9d67;
+      --country-stroke: rgba(13, 45, 25, 0.38);
+      --graticule: rgba(26, 74, 112, 0.23);
       color-scheme: light;
     }
 
     html { scroll-behavior: smooth; }
+
     body {
       min-height: 100vh;
       overflow-x: hidden;
@@ -64,8 +75,13 @@
         radial-gradient(circle at 86% 76%, color-mix(in srgb, var(--green) 14%, transparent), transparent 38%),
         var(--bg);
       color: var(--text);
-      font-family: 'Source Serif 4', Georgia, serif;
-      line-height: 1.65;
+      font-family: 'OpenDyslexic', 'OpenDyslexicAlta', 'OpenDyslexic3', Arial, Verdana, sans-serif;
+      line-height: 1.72;
+      letter-spacing: 0.01em;
+    }
+
+    button, a, p, li, input, textarea {
+      font-family: 'OpenDyslexic', 'OpenDyslexicAlta', 'OpenDyslexic3', Arial, Verdana, sans-serif;
     }
 
     .stars, .stars::before, .stars::after {
@@ -91,7 +107,7 @@
       left: 50%;
       transform: translateX(-50%);
       width: min(1120px, calc(100% - 32px));
-      z-index: 20;
+      z-index: 30;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -111,9 +127,8 @@
       gap: .55rem;
       padding: .58rem .82rem;
       border-radius: 999px;
-      font-family: 'IBM Plex Mono', monospace;
       text-transform: uppercase;
-      letter-spacing: .18em;
+      letter-spacing: .12em;
       font-size: .68rem;
       color: var(--muted);
       text-decoration: none;
@@ -129,92 +144,133 @@
       border-radius: 999px;
       color: var(--text);
       cursor: pointer;
-      font-family: 'IBM Plex Mono', monospace;
       font-size: .68rem;
-      letter-spacing: .12em;
+      letter-spacing: .08em;
       padding: .62rem .82rem;
       text-transform: uppercase;
     }
 
+    /* Real globe layer */
     .globe-stage {
       position: fixed;
-      right: clamp(-120px, -4vw, -10px);
+      right: clamp(-280px, -13vw, -70px);
       top: 50%;
       transform: translateY(-50%);
-      width: min(76vw, 780px);
+      width: min(94vw, 980px);
       aspect-ratio: 1;
       z-index: 0;
       pointer-events: none;
-      opacity: .82;
-      filter: drop-shadow(0 0 55px color-mix(in srgb, var(--blue) 23%, transparent));
+      opacity: .92;
+      filter: drop-shadow(0 0 70px color-mix(in srgb, var(--blue) 25%, transparent));
     }
-    .globe-shell {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 1px solid var(--border-strong);
-      background:
-        radial-gradient(circle at 33% 25%, rgba(255,255,255,.22), transparent 10%),
-        radial-gradient(circle at 66% 78%, rgba(0,0,0,.32), transparent 42%),
-        var(--globe-water);
-      box-shadow:
-        inset -70px -45px 110px rgba(0,0,0,.52),
-        inset 30px 24px 80px rgba(255,255,255,.10),
-        0 32px 90px var(--shadow);
-    }
-    html[data-theme="light"] .globe-shell {
-      box-shadow:
-        inset -60px -40px 100px rgba(15,40,70,.18),
-        inset 34px 28px 80px rgba(255,255,255,.32),
-        0 24px 75px var(--shadow);
-    }
-    .globe-map {
-      position: absolute;
-      inset: 0;
+
+    .real-globe {
       width: 100%;
       height: 100%;
-      transform-origin: 50% 50%;
-      animation: breatheGlobe 18s ease-in-out infinite;
-    }
-    .globe-grid {
-      stroke: var(--grid);
-      stroke-width: 1.1;
-      fill: none;
-    }
-    .land {
-      fill: var(--globe-land);
-      opacity: .92;
-      filter: drop-shadow(0 0 7px color-mix(in srgb, var(--green) 12%, transparent));
-    }
-    .land.soft { opacity: .58; }
-    .globe-glow {
-      position: absolute;
-      inset: -2%;
+      position: relative;
       border-radius: 50%;
-      background: radial-gradient(circle at 50% 50%, transparent 61%, color-mix(in srgb, var(--blue) 30%, transparent) 66%, transparent 75%);
-      pointer-events: none;
     }
-    @keyframes breatheGlobe {
-      0%, 100% { transform: translateX(0) scale(1); }
-      50% { transform: translateX(-14px) scale(1.015); }
+
+    #globeSvg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 50%;
+      filter: saturate(1.05) contrast(1.04);
+    }
+
+    .sphere {
+      fill: url(#oceanGradient);
+      stroke: var(--border-strong);
+      stroke-width: 1.4;
+    }
+
+    .globe-graticule {
+      fill: none;
+      stroke: var(--graticule);
+      stroke-width: .8;
+    }
+
+    .country {
+      fill: color-mix(in srgb, var(--globe-land) 92%, #d9ffd9);
+      stroke: var(--country-stroke);
+      stroke-width: .38;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .country:hover {
+      fill: var(--globe-land-hi);
+    }
+
+    .country-borders {
+      fill: none;
+      stroke: var(--country-stroke);
+      stroke-width: .45;
+      pointer-events: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .globe-shade {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 32% 24%, rgba(255,255,255,.24), transparent 12%),
+        radial-gradient(circle at 66% 77%, rgba(0,0,0,.50), transparent 48%),
+        radial-gradient(circle at 50% 50%, transparent 59%, color-mix(in srgb, var(--blue) 24%, transparent) 66%, transparent 75%);
+      box-shadow:
+        inset -80px -62px 120px rgba(0,0,0,.55),
+        inset 38px 30px 90px rgba(255,255,255,.10),
+        0 36px 100px var(--shadow);
+    }
+
+    html[data-theme="light"] .globe-shade {
+      background:
+        radial-gradient(circle at 33% 23%, rgba(255,255,255,.35), transparent 13%),
+        radial-gradient(circle at 68% 78%, rgba(20,60,100,.20), transparent 50%),
+        radial-gradient(circle at 50% 50%, transparent 60%, rgba(55, 113, 171, .18) 67%, transparent 76%);
+      box-shadow:
+        inset -64px -48px 110px rgba(15,40,70,.16),
+        inset 34px 28px 80px rgba(255,255,255,.30),
+        0 24px 75px var(--shadow);
+    }
+
+    .globe-loading {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: .82rem;
+      text-align: center;
+      padding: 2rem;
+      pointer-events: none;
     }
 
     .map-node {
       position: absolute;
-      z-index: 5;
+      z-index: 8;
       display: flex;
       align-items: center;
       gap: .45rem;
       color: var(--text);
       text-decoration: none;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: .68rem;
-      letter-spacing: .08em;
+      font-size: .67rem;
+      letter-spacing: .06em;
       text-transform: uppercase;
-      text-shadow: 0 1px 10px rgba(0,0,0,.48);
+      text-shadow: 0 1px 10px rgba(0,0,0,.52);
       pointer-events: auto;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.92);
+      transition: opacity .3s ease, transform .3s ease;
     }
+
+    .map-node.visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
     .map-node::before {
       content: "";
       width: 15px;
@@ -227,20 +283,23 @@
       flex-shrink: 0;
     }
     .map-node span {
-      padding: .18rem .38rem;
+      padding: .18rem .42rem;
       border-radius: 999px;
-      background: color-mix(in srgb, var(--panel-solid) 70%, transparent);
+      background: color-mix(in srgb, var(--panel-solid) 76%, transparent);
       border: 1px solid var(--border);
       backdrop-filter: blur(10px);
+      white-space: nowrap;
     }
-    .node-palestine { --node-color: var(--red); left: 55%; top: 43%; }
-    .node-myanmar { --node-color: var(--gold); left: 68%; top: 53%; animation-delay: .5s; }
-    .node-congo { --node-color: var(--green); left: 49%; top: 61%; animation-delay: 1s; }
-    .node-racism { --node-color: var(--blue); left: 30%; top: 38%; animation-delay: 1.4s; }
+
+    .node-palestine { --node-color: var(--red); }
+    .node-myanmar { --node-color: var(--gold); }
+    .node-congo { --node-color: var(--green); }
+    .node-racism { --node-color: var(--blue); }
+
     @keyframes pulseNode {
-      0% { transform: scale(.92); box-shadow: 0 0 0 0 color-mix(in srgb, var(--node-color, var(--blue)) 42%, transparent); }
-      70% { transform: scale(1.06); box-shadow: 0 0 0 18px transparent; }
-      100% { transform: scale(.92); box-shadow: 0 0 0 0 transparent; }
+      0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--node-color, var(--blue)) 42%, transparent); }
+      70% { box-shadow: 0 0 0 18px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
     }
 
     .page {
@@ -258,15 +317,14 @@
     }
     .hero-copy { max-width: 720px; }
     .kicker {
-      font-family: 'IBM Plex Mono', monospace;
       text-transform: uppercase;
-      letter-spacing: .34em;
+      letter-spacing: .22em;
       font-size: .7rem;
       color: var(--quiet);
       margin-bottom: 1rem;
     }
     h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display', Georgia, serif;
       font-weight: 500;
       font-size: clamp(2.55rem, 8vw, 7.3rem);
       line-height: .92;
@@ -275,7 +333,7 @@
     }
     .lede {
       color: var(--muted);
-      font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+      font-size: clamp(1rem, 1.42vw, 1.16rem);
       max-width: 670px;
       margin-top: 1.45rem;
     }
@@ -290,16 +348,15 @@
       display: inline-flex;
       align-items: center;
       gap: .55rem;
-      padding: .8rem 1.08rem;
+      padding: .82rem 1.08rem;
       border: 1px solid var(--border);
       border-radius: 999px;
       background: var(--panel);
       color: var(--text);
       text-decoration: none;
-      font-family: 'IBM Plex Mono', monospace;
       text-transform: uppercase;
-      letter-spacing: .12em;
-      font-size: .72rem;
+      letter-spacing: .08em;
+      font-size: .68rem;
       transition: transform .16s ease, border-color .16s ease, background .16s ease;
       backdrop-filter: blur(16px);
       box-shadow: 0 12px 28px var(--shadow);
@@ -352,19 +409,18 @@
       pointer-events: none;
     }
     .card h2 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.6rem;
       font-weight: 500;
       margin-bottom: .72rem;
       letter-spacing: -.03em;
     }
-    .card p { color: var(--muted); font-size: .96rem; position: relative; }
+    .card p { color: var(--muted); font-size: .92rem; position: relative; }
     .card .meta {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: .68rem;
+      font-size: .66rem;
       color: var(--quiet);
       text-transform: uppercase;
-      letter-spacing: .18em;
+      letter-spacing: .16em;
       margin-bottom: .7rem;
       position: relative;
     }
@@ -372,10 +428,9 @@
       margin-top: 1.1rem;
       align-self: flex-start;
       color: var(--text);
-      font-family: 'IBM Plex Mono', monospace;
       text-transform: uppercase;
-      letter-spacing: .12em;
-      font-size: .7rem;
+      letter-spacing: .08em;
+      font-size: .66rem;
       text-decoration: none;
       border-bottom: 1px dotted color-mix(in srgb, var(--accent) 75%, var(--text));
       position: relative;
@@ -392,7 +447,7 @@
       box-shadow: 0 18px 50px var(--shadow);
     }
     .statement h2 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display', Georgia, serif;
       font-weight: 500;
       font-size: clamp(1.7rem, 4vw, 3rem);
       letter-spacing: -.04em;
@@ -403,14 +458,13 @@
     footer {
       margin-top: 2.5rem;
       color: var(--quiet);
-      font-family: 'IBM Plex Mono', monospace;
       text-transform: uppercase;
-      letter-spacing: .16em;
+      letter-spacing: .12em;
       font-size: .68rem;
     }
 
-    @media (max-width: 940px) {
-      .globe-stage { width: min(105vw, 720px); right: -250px; opacity: .55; }
+    @media (max-width: 1040px) {
+      .globe-stage { width: min(110vw, 900px); right: -310px; opacity: .70; }
       .grid { grid-template-columns: 1fr; }
       .card { min-height: 210px; }
       header { min-height: 74vh; }
@@ -419,8 +473,8 @@
       .page { width: min(100% - 24px, 1120px); padding-top: 6.5rem; }
       .topbar { width: calc(100% - 24px); top: .75rem; }
       .brand { max-width: 56vw; overflow: hidden; white-space: nowrap; }
-      .theme-toggle { font-size: .62rem; padding: .58rem .7rem; }
-      .globe-stage { width: 118vw; right: -58vw; top: 40%; opacity: .45; }
+      .theme-toggle { font-size: .6rem; padding: .58rem .7rem; }
+      .globe-stage { width: 132vw; right: -72vw; top: 42%; opacity: .42; }
       .map-node span { display: none; }
       .hero-actions { gap: .55rem; }
       .btn { width: 100%; justify-content: center; }
@@ -435,49 +489,34 @@
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">Light mode</button>
   </div>
 
-  <div class="globe-stage" aria-label="Background globe with topic links">
-    <div class="globe-shell">
-      <svg class="globe-map" viewBox="0 0 600 600" role="img" aria-label="Stylised rotating world map">
+  <div class="globe-stage" aria-label="Rotating background globe with topic links">
+    <div class="real-globe" id="realGlobe">
+      <svg id="globeSvg" viewBox="0 0 900 900" role="img" aria-label="Rotating globe drawn from real country boundary data">
         <defs>
-          <clipPath id="clipGlobe"><circle cx="300" cy="300" r="292" /></clipPath>
+          <radialGradient id="oceanGradient" cx="34%" cy="26%" r="74%">
+            <stop offset="0%" stop-color="color-mix(in srgb, var(--globe-water-2) 74%, white)" />
+            <stop offset="45%" stop-color="var(--globe-water-2)" />
+            <stop offset="100%" stop-color="var(--globe-water-1)" />
+          </radialGradient>
         </defs>
-        <g clip-path="url(#clipGlobe)">
-          <circle cx="300" cy="300" r="292" fill="transparent" />
-          <g class="globe-grid">
-            <ellipse cx="300" cy="300" rx="292" ry="86" />
-            <ellipse cx="300" cy="300" rx="292" ry="155" />
-            <ellipse cx="300" cy="300" rx="292" ry="228" />
-            <path d="M8 300 H592" />
-            <ellipse cx="300" cy="300" rx="74" ry="292" />
-            <ellipse cx="300" cy="300" rx="146" ry="292" />
-            <ellipse cx="300" cy="300" rx="218" ry="292" />
-            <path d="M300 8 V592" />
-          </g>
-          <!-- Simplified landmasses: visible, offline-safe silhouettes rather than a heavy map library. -->
-          <path class="land" d="M95 145 C124 103 190 112 211 143 C228 168 204 182 218 213 C234 248 202 264 177 250 C146 232 139 275 108 256 C82 240 65 185 95 145 Z" />
-          <path class="land soft" d="M168 286 C214 275 239 323 219 367 C203 402 213 449 177 470 C149 486 133 447 147 413 C158 385 126 361 136 327 C141 306 151 294 168 286 Z" />
-          <path class="land" d="M255 130 C314 93 394 113 430 156 C455 185 431 213 462 235 C502 264 482 326 432 324 C390 322 366 287 330 301 C296 314 267 279 287 246 C310 207 221 178 255 130 Z" />
-          <path class="land soft" d="M340 326 C371 302 414 323 424 364 C436 411 398 472 353 468 C326 466 314 438 326 408 C338 379 310 349 340 326 Z" />
-          <path class="land" d="M440 210 C496 190 543 233 528 282 C517 319 473 320 465 351 C459 377 424 371 420 340 C416 306 443 286 431 258 C422 236 421 219 440 210 Z" />
-          <path class="land soft" d="M478 390 C522 388 553 423 546 464 C538 506 482 520 455 489 C430 461 441 394 478 390 Z" />
-          <path class="land soft" d="M62 362 C103 344 124 380 104 413 C83 445 33 426 31 392 C30 376 42 368 62 362 Z" />
-        </g>
       </svg>
+      <div class="globe-shade" aria-hidden="true"></div>
+      <div class="globe-loading" id="globeLoading">Loading real country map…</div>
+
+      <a class="map-node node-palestine" data-lon="35.2" data-lat="31.9" href="palestine.html"><span>Palestine</span></a>
+      <a class="map-node node-myanmar" data-lon="96.0" data-lat="21.9" href="https://www.unrefugees.org/news/rohingya-refugee-crisis-explained/" target="_blank" rel="noopener noreferrer"><span>Myanmar</span></a>
+      <a class="map-node node-congo" data-lon="23.7" data-lat="-2.9" href="https://www.unhcr.org/emergencies/dr-congo-emergency" target="_blank" rel="noopener noreferrer"><span>Congo</span></a>
+      <a class="map-node node-racism" data-lon="-74.0" data-lat="40.7" href="https://equality4all.netlify.app/" target="_blank" rel="noopener noreferrer"><span>Racism</span></a>
     </div>
-    <div class="globe-glow"></div>
-    <a class="map-node node-palestine" href="palestine.html"><span>Palestine</span></a>
-    <a class="map-node node-myanmar" href="https://www.unrefugees.org/news/rohingya-refugee-crisis-explained/" target="_blank" rel="noopener noreferrer"><span>Myanmar</span></a>
-    <a class="map-node node-congo" href="https://www.unhcr.org/emergencies/dr-congo-emergency" target="_blank" rel="noopener noreferrer"><span>Congo</span></a>
-    <a class="map-node node-racism" href="https://equality4all.netlify.app/" target="_blank" rel="noopener noreferrer"><span>Racism</span></a>
   </div>
 
   <main class="page">
     <header>
       <div class="hero-copy">
-        <p class="kicker">Debate notes · evidence first · no slogan fog</p>
-        <h1>Arguments mapped like a world at night.</h1>
+        <p class="kicker">Debate notes - evidence first</p>
+        <h1>Arguments mapped like a world at night</h1>
         <p class="lede">
-          This is a small home base for topics I keep coming back to: racism, Palestine, occupation, rights, and the way people twist words when the evidence gets uncomfortable. <strong>The aim is not noise. The aim is clarity.</strong>
+          A home base for the topics I keep returning to: racism, Palestine, occupation, rights, and the way people start bending words once the evidence gets uncomfortable. <strong>The aim is not noise. The aim is clarity.</strong>
         </p>
         <div class="hero-actions" aria-label="Main links">
           <a class="btn green" href="https://equality4all.netlify.app/" target="_blank" rel="noopener noreferrer">Racism page · Netlify form</a>
@@ -485,7 +524,7 @@
           <a class="btn red" href="palestine.html">Palestine arguments</a>
         </div>
         <div class="quick-note">
-          <strong>Note:</strong> the Netlify racism page is kept separate because that is where the working “ask me questions” form lives. This hub links to it instead of replacing it.
+          <strong>Note:</strong> the Netlify racism page is kept separate because that is where the working “ask me questions” form lives.
         </div>
       </div>
     </header>
@@ -495,7 +534,7 @@
         <div>
           <p class="meta">Race & racism</p>
           <h2>What counts as racism?</h2>
-          <p>A clean reference page for definitions, counterarguments, global examples, and the weak spots in “power + prejudice” claims.</p>
+          <p>A reference page for definitions, counterarguments, global examples, and the weak spots in “power + prejudice” claims.</p>
         </div>
         <a class="card-link" href="https://equality4all.netlify.app/" target="_blank" rel="noopener noreferrer">Open the live Netlify page →</a>
       </article>
@@ -504,7 +543,7 @@
         <div>
           <p class="meta">Palestine</p>
           <h2>Occupation, law, and self-determination.</h2>
-          <p>A calmer argument page: not every point is a chant, not every criticism is antisemitism, and not every civilian death can be waved away by saying “security.”</p>
+          <p>A calmer argument: not every point is a chant, not every criticism is antisemitism, and not every civilian death can be brushed aside by saying “security.”</p>
         </div>
         <a class="card-link" href="palestine.html">Open the Palestine page →</a>
       </article>
@@ -513,7 +552,7 @@
         <div>
           <p class="meta">Global cases</p>
           <h2>Myanmar, Congo, and beyond.</h2>
-          <p>The map matters because injustice is not locked to one country. The dots are reminders: different histories, same need for honest standards.</p>
+          <p>The map matters because injustice is not locked to one society. The dots are reminders: different histories, same need for honest standards.</p>
         </div>
         <a class="card-link" href="https://www.unrefugees.org/news/rohingya-refugee-crisis-explained/" target="_blank" rel="noopener noreferrer">Example source →</a>
       </article>
@@ -522,15 +561,17 @@
     <section class="statement">
       <h2>The standard should not move.</h2>
       <p>
-        The whole project is built around one rule: use the same definitions even when they become inconvenient. If a principle only works when it protects your side, it is not a principle. It is decoration.
+        The project is built around one rule: use the same definitions even when they become inconvenient. If a principle only works when it protects your side, it is not a principle. It is decoration.
       </p>
     </section>
 
     <footer>
-      Built as a static GitHub Pages hub · Netlify remains the form host
+      By GatesOfJoy
     </footer>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
   <script>
     const root = document.documentElement;
     const btn = document.getElementById('themeToggle');
@@ -549,6 +590,100 @@
     btn.addEventListener('click', () => {
       setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
+
+    const globeSvg = d3.select("#globeSvg");
+    const loading = document.getElementById("globeLoading");
+    const nodes = [...document.querySelectorAll(".map-node")];
+
+    const size = 900;
+    const projection = d3.geoOrthographic()
+      .translate([size / 2, size / 2])
+      .scale(size * 0.46)
+      .clipAngle(90)
+      .precision(0.6);
+
+    const path = d3.geoPath(projection);
+    const graticule = d3.geoGraticule10();
+
+    let rotateX = -18;
+    let rotateY = -12;
+    let baseRotation = -38;
+
+    globeSvg.append("path")
+      .datum({ type: "Sphere" })
+      .attr("class", "sphere")
+      .attr("d", path);
+
+    globeSvg.append("path")
+      .datum(graticule)
+      .attr("class", "globe-graticule")
+      .attr("d", path);
+
+    const countriesGroup = globeSvg.append("g").attr("class", "countries-layer");
+    const bordersPath = globeSvg.append("path").attr("class", "country-borders");
+
+    function updateNodes() {
+      const rotation = projection.rotate();
+      const center = [-rotation[0], -rotation[1]];
+
+      nodes.forEach(node => {
+        const lon = Number(node.dataset.lon);
+        const lat = Number(node.dataset.lat);
+        const point = [lon, lat];
+        const visible = d3.geoDistance(point, center) < Math.PI / 2.08;
+        const projected = projection(point);
+
+        if (!visible || !projected) {
+          node.classList.remove("visible");
+          return;
+        }
+
+        node.style.left = `${projected[0] / size * 100}%`;
+        node.style.top = `${projected[1] / size * 100}%`;
+        node.classList.add("visible");
+      });
+    }
+
+    function render() {
+      projection.rotate([baseRotation, rotateY, rotateX]);
+      globeSvg.select(".sphere").attr("d", path);
+      globeSvg.select(".globe-graticule").attr("d", path);
+      countriesGroup.selectAll("path").attr("d", path);
+      bordersPath.attr("d", path);
+      updateNodes();
+    }
+
+    async function loadGlobe() {
+      try {
+        const world = await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json");
+        const countries = topojson.feature(world, world.objects.countries).features;
+        const borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
+
+        countriesGroup.selectAll("path")
+          .data(countries)
+          .join("path")
+          .attr("class", "country")
+          .append("title")
+          .text(d => d.properties && d.properties.name ? d.properties.name : "Country");
+
+        bordersPath.datum(borders);
+
+        loading.remove();
+        render();
+
+        d3.timer((elapsed) => {
+          baseRotation = -38 + elapsed * 0.0045;
+          render();
+        });
+      } catch (error) {
+        console.error(error);
+        loading.textContent = "Could not load the real country map. Check internet/CDN access.";
+      }
+    }
+
+    loadGlobe();
+
+    window.addEventListener("resize", render);
   </script>
 </body>
 </html>
